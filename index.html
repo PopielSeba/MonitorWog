@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8" />
+  <title>Monitor WOG/NATO – live podgląd</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;max-width:900px;margin:40px auto;padding:0 16px}
+    header{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+    h1{font-size:1.4rem;margin:0}
+    .meta{color:#666;font-size:.9rem}
+    ul{padding-left:18px}
+    li{margin:10px 0}
+    .badge{display:inline-block;padding:2px 8px;border-radius:999px;background:#eee;margin-left:8px}
+    .err{color:#b00020}
+    button{cursor:pointer}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Monitor WOG/NATO – live podgląd <span id="count" class="badge">—</span></h1>
+    <div class="meta">Ostatnia aktualizacja: <span id="ts">—</span> • auto: co 5 min</div>
+  </header>
+
+  <p>Ta strona woła funkcję:
+    <code>/.netlify/functions/wog-notifier?format=json&dryRun=1</code>
+    i wyświetla ogłoszenia bez wysyłania e-maili.
+  </p>
+
+  <p>
+    <button id="refresh">Odśwież teraz</button>
+  </p>
+
+  <ul id="list"></ul>
+
+  <script>
+    const API = "/.netlify/functions/wog-notifier?format=json&dryRun=1";
+    const list = document.getElementById("list");
+    const ts = document.getElementById("ts");
+    const count = document.getElementById("count");
+    const btn = document.getElementById("refresh");
+
+    async function load() {
+      try {
+        const res = await fetch(API, { cache: "no-store" });
+        if (!res.ok) throw new Error("HTTP " + res.status);
+        const data = await res.json();
+        ts.textContent = new Date().toLocaleString("pl-PL");
+        count.textContent = data.count;
+        list.innerHTML = data.items.map(x => `
+          <li>
+            <a href="${x.link || '#'}" target="_blank" rel="noopener">${escapeHtml(x.title || "(bez tytułu)")}</a><br>
+            <small>${escapeHtml(x.source || "")} • ${escapeHtml(x.pub || "")}</small>
+          </li>
+        `).join("") || "<li>Brak świeżych pozycji.</li>";
+      } catch (e) {
+        list.innerHTML = `<li class="err">Błąd pobierania: ${String(e)}</li>`;
+      }
+    }
+
+    function escapeHtml(s) {
+      return String(s).replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;");
+    }
+
+    btn.addEventListener("click", load);
+    load();                      // start
+    setInterval(load, 5*60*1000) // co 5 min
+  </script>
+</body>
+</html>
