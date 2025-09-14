@@ -1,0 +1,18 @@
+{
+  "name": "wog-notifier",
+  "version": "1.2.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "netlify dev",
+    "build": "echo \"Netlify bundluje funkcje automatycznie\""
+  },
+  "dependencies": {
+    "nodemailer": "^6.9.13",
+    "xml2js": "^0.6.2"
+  },
+  "devDependencies": {
+    "@netlify/functions": "^2.6.0",
+    "typescript": "^5.6.2"
+  }
+}

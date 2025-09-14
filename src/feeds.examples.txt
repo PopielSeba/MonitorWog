@@ -1,0 +1,32 @@
+# >>> REALNE feedy do FEED_URLS (parser obsługuje RSS/Atom + JSON SAM.gov).
+# Na dziś aktywne: TED (RSS) + SAM.gov (JSON API).
+
+# === AKTYWNE (SZEROKIE) ===
+# 1) TED – RSS: słowa-klucze + kraje (DE, PL, CZ, SK, RO, LT)
+https://ted.europa.eu/udl?uri=TED:NOTICE:feed:EN:RSS&searchText=camp%20OR%20tent%20OR%20container%20OR%20generator%20OR%20%22lighting%20mast%22%20OR%20HVAC%20OR%20%22air%20conditioning%22%20OR%20heater&country=DE&country=PL&country=CZ&country=SK&country=RO&country=LT
+
+# 2) SAM.gov – JSON API: słowa-klucze + Europa Środkowo-Wschodnia (PL, DE, CZ, SK, RO, LT)
+https://api.sam.gov/opportunities/v2/search?limit=50&q=camp%20OR%20tent%20OR%20container%20OR%20generator%20OR%20%22lighting%20mast%22%20OR%20HVAC%20OR%20%22air%20conditioning%22%20OR%20heater&placeOfPerformanceLocations=PL%2CDE%2CCZ%2CSK%2CRO%2CLT
+
+# === DUMMY (do monitoringu / II etap = scraper) ===
+
+# LITWA — CVP IS
+https://pirkimai.eviesiejipirkimai.lt/
+
+# RUMUNIA — SEAP / e-Licitație
+https://www.e-licitatie.ro/pub/notices/contract-notices/list
+
+# CZECHY — Portal VZ
+https://portal-vz.cz/
+
+# SŁOWACJA — UVO (Public Procurement Journal)
+https://www.uvo.gov.sk/vestnik
+
+# NIEMCY — Bund (ÖffentlicheVergabe)
+https://www.oeffentlichevergabe.de/
+https://service.bund.de/
+
+# NATO — Current Opportunities
+https://www.ncia.nato.int/business/procurement/current-opportunities
+https://aco.procureware.com/
+https://www.nato.int/cps/en/natohq/62249.htm
